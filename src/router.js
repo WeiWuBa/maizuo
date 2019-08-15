@@ -54,23 +54,5 @@ const router = new VueRouter({
   routes
 })
 
-window.isOk = false
-router.beforeEach((to, from, next) => {
-  console.log(to)
-  if (!window.isOk) {
-    router.addRoutes([
-      {
-        path: '/hello',
-        component: {
-          render: h => h('h1', null, 'hello')
-        }
-      }
-    ])
-    window.isOk = true
-  }
-
-  next()
-})
-
 // 6. 暴露
 export default router
