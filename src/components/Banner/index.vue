@@ -57,11 +57,18 @@ export default {
   mounted() {
     this.initSwiper()
   }
+  // updated() {
+  //   this.initSwiper()
+  // }
 }
 </script>
 
 <style lang="scss">
 .swiper-container {
   height: 210px;
+
+  img {
+    width: 100%;
+  }
 }
 </style>
