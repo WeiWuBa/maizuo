@@ -1,6 +1,19 @@
 <template>
   <!-- 影片列表页 -->
   <div class="page-home-films">
-    <h1>影片列表页</h1>
+    <!-- 轮播图 -->
+    <Banner />
   </div>
 </template>
+
+<script>
+import Banner from '../../components/Banner'
+
+export default {
+  name: 'Films',
+
+  components: {
+    Banner
+  }
+}
+</script>
