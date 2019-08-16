@@ -1,5 +1,6 @@
 // 需要调用 ajax 。那么引入封装好的 网络请求工具模块
 import request from '../../utils/request'
+// import { Toast } from 'vant'
 
 export default {
   namespaced: true,
@@ -9,19 +10,22 @@ export default {
   },
 
   getters: {
-    bannerListImgs(state) {
+    bannerListImgs (state) {
       return state.bannerList.map(item => item.img)
     }
   },
 
   mutations: {
-    setBannerList(state, payload) {
+    setBannerList (state, payload) {
       state.bannerList = payload
     }
   },
 
   actions: {
-    getBannerList({ commit }) {
+    /**
+     * 获取轮播图的数据
+     */
+    getBannerList ({ commit }) {
       // axios.get('/banner') http://localhost:8080/banner
       request.get('/banner').then(data => {
         // console.log(data)

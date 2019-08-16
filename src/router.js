@@ -28,6 +28,10 @@ const routes = [
       {
         path: 'center',
         component: () => import('./views/Home/center.vue')
+      },
+      {
+        path: '*',
+        redirect: '/films'
       }
     ]
   },

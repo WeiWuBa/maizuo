@@ -26,7 +26,7 @@ const http = axios.create({
 // 一些拦截的设置
 
 // 响应的拦截，当请求响应回到 .then 回调之前，会执行这段代码的回调函数
-http.interceptors.response.use(function(response) {
+http.interceptors.response.use(function (response) {
   console.log('1')
   return response.data
 })

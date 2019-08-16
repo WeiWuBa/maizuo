@@ -40,6 +40,7 @@ export default {
 
   > div:first-child {
     flex: 1;
+    overflow-y: auto;
   }
 }
 </style>

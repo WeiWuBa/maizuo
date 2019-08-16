@@ -2,6 +2,7 @@
 
 // 1. 引入 axios
 import axios from 'axios'
+import { Toast } from 'vant'
 
 // 2. 创建一个 axios 的实例对象
 const request = axios.create({
@@ -13,9 +14,19 @@ const request = axios.create({
 
 // 3.1 响应拦截
 //    3.1.1 直接将 response.data 给返回出去，以方便外面调用时还得 .data
-request.interceptors.response.use(response => {
-  return response.data
-})
+request.interceptors.response.use(
+  response => {
+    // 请求成功，将 reponse.data 直接返回出去
+    return response.data
+  },
+  error => {
+    // 请求出现异常，直接 Toast 一个网络异常
+    // console.log(1)
+    Toast('网络异常，请稍后重试')
+
+    return Promise.reject(error)
+  }
+)
 
 // 4. 将 实例暴露出去，
 export default request
