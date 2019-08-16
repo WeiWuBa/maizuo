@@ -30,7 +30,7 @@ const routes = [
         component: () => import('./views/Home/center.vue')
       },
       {
-        path: '*',
+        path: '',
         redirect: '/films'
       }
     ]

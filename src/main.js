@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { Tab, Tabs, List, Cell } from 'vant'
+import { Tab, Tabs, List, Cell, NavBar, Search } from 'vant'
 import './assets/styles/base.scss'
 
 // Vue.use(Toast) //Vue.prototype.$toast = Toast
@@ -13,6 +13,8 @@ Vue.use(Tab)
   .use(Tabs)
   .use(List)
   .use(Cell)
+  .use(NavBar)
+  .use(Search)
 
 new Vue({
   store,
