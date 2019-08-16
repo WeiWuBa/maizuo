@@ -25,7 +25,16 @@ export default {
       // 第一种方式 做拼接
       // state.filmList = state.filmList.concat(payload.films)
       // 第二中方式 做push ...
-      state.filmList.push(...payload.films)
+      // if (payload.needClear) {
+      //   // 需要清空，做替换
+      //   state.filmList = payload.films
+      // } else {
+      //   // 不需要清空，做追加
+      //   state.filmList.push(...payload.films)
+      // }
+
+      // state.filmList.push(...payload.films)
+      state.filmList = payload.films
       state.total = payload.total
     }
   },
@@ -46,7 +55,7 @@ export default {
     /**
      * 获取影片列表数据
      */
-    getFilmList({ commit }, payload) {
+    getFilmList({ commit, state }, payload) {
       setTimeout(() => {
         request
           .get('/gateway', {
@@ -54,7 +63,7 @@ export default {
               cityId: 440300,
               pageNum: payload.pageNum,
               pageSize: payload.pageSize,
-              type: 1,
+              type: payload.filmType === 0 ? 1 : 2,
               k: 2809619
             },
             headers: {
@@ -67,7 +76,7 @@ export default {
             if (res.status === 0) {
               commit({
                 type: 'setFilmList',
-                films: res.data.films,
+                films: state.filmList.concat(res.data.films),
                 total: res.data.total
               })
 

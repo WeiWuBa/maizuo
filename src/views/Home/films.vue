@@ -6,11 +6,13 @@
       <Banner ref="myBanner" :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" />
 
       <!-- Tab 标签页 -->
-      <van-tabs v-model="active" sticky :class="{'z-fixed': isFixed}">
+      <van-tabs v-model="filmType" sticky :class="{'z-fixed': isFixed}">
         <van-tab title="正在热映">
           <FilmList :films="filmList" />
         </van-tab>
-        <van-tab title="即将上映">内容2</van-tab>
+        <van-tab title="即将上映">
+          <FilmList :films="filmList" />
+        </van-tab>
       </van-tabs>
     </div>
   </van-list>
@@ -19,7 +21,7 @@
 <script>
 import Banner from '../../components/Banner'
 import FilmList from '../../components/FilmList'
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Films',
@@ -46,11 +48,28 @@ export default {
       loading: false, // 是否正在请求数据
       pageNum: 0, // 当前的页码
       pageSize: 10, // 每页显示的条数
-      active: 0
+      filmType: 0 // 当前影片类型，0-正在热映 1-即将上映
+    }
+  },
+
+  watch: {
+    filmType(newVal, oldVal) {
+      // 1. 将 pageNum 设置为 0
+      this.pageNum = 0
+      // 2. 将 finished 设置为 false
+      this.finished = false
+      // 3. 让滚动条置顶, list 组件的一个小坑，如果页面不进行操作，直接切换tab，会导致 @load 事件不触发。让他稍稍动一下就ok。
+      this.$el.scrollTop = 1
+      // 4. 直接先做清空
+      this.setFilmList({
+        films: [],
+        total: this.total
+      })
     }
   },
 
   methods: {
+    ...mapMutations('film', ['setFilmList']),
     ...mapActions('film', ['getBannerList', 'getFilmList']),
 
     bindScroll() {
@@ -62,6 +81,10 @@ export default {
         this.isFixed = false
       }
     },
+
+    // fn1(name, title) {
+    //   console.log(name, title)
+    // },
 
     /**
      * 加载更多的影片列表数据
@@ -75,6 +98,7 @@ export default {
         // 其他的参数
         pageNum: this.pageNum,
         pageSize: this.pageSize,
+        filmType: this.filmType,
         callback: () => {
           console.log('回调函数')
           this.loading = false
