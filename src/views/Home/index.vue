@@ -19,12 +19,12 @@ export default {
     Tabbar
   },
 
-  data () {
+  data() {
     return {
       tabs: [
         { id: 1, name: '影片', icon: 'icon-films', href: '/films' },
         { id: 2, name: '影院', icon: 'icon-cinemas', href: '/cinemas' },
-        { id: 3, name: '分类', icon: 'icon-sales', href: '/brand' },
+        { id: 3, name: '分类', icon: 'icon-sales', href: '/brand/' },
         { id: 4, name: '我的', icon: 'icon-center', href: '/center' }
       ]
     }
