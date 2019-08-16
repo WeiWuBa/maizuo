@@ -8,10 +8,10 @@
       <!-- Tab 标签页 -->
       <van-tabs v-model="filmType" sticky :class="{'z-fixed': isFixed}">
         <van-tab title="正在热映">
-          <FilmList :films="filmList" />
+          <FilmList filmType="nowPlaying" :films="filmList" />
         </van-tab>
         <van-tab title="即将上映">
-          <FilmList :films="filmList" />
+          <FilmList filmType="comingSoon" :films="filmList" />
         </van-tab>
       </van-tabs>
     </div>

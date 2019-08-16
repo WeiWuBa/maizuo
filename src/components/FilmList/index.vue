@@ -16,7 +16,8 @@
             <p class="film-info-detail">美国 xxx | 133分钟</p>
           </div>
           <div class="film-btn">
-            <button>购票</button>
+            <button v-if="filmType === 'nowPlaying'">购票</button>
+            <button v-else>预购</button>
           </div>
         </a>
       </li>
@@ -29,7 +30,14 @@ export default {
   name: 'FilmList',
 
   props: {
-    films: Array
+    films: Array,
+    filmType: {
+      type: String,
+
+      validator(value) {
+        return ['nowPlaying', 'comingSoon'].indexOf(value) > -1
+      }
+    }
   },
 
   // 过滤器选项
