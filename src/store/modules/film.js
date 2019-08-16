@@ -7,7 +7,8 @@ export default {
 
   state: {
     bannerList: [], // 热门影片轮播图数据
-    filmList: [] // 影片列表数据
+    filmList: [], // 影片列表数据
+    total: 1 // 一共有多少条数据
   },
 
   getters: {
@@ -21,7 +22,11 @@ export default {
       state.bannerList = payload
     },
     setFilmList(state, payload) {
-      state.filmList = payload.films
+      // 第一种方式 做拼接
+      // state.filmList = state.filmList.concat(payload.films)
+      // 第二中方式 做push ...
+      state.filmList.push(...payload.films)
+      state.total = payload.total
     }
   },
 
@@ -41,30 +46,36 @@ export default {
     /**
      * 获取影片列表数据
      */
-    getFilmList({ commit }) {
-      request
-        .get('/gateway', {
-          params: {
-            cityId: 440300,
-            pageNum: 1,
-            pageSize: 10,
-            type: 1,
-            k: 2809619
-          },
-          headers: {
-            'X-Client-Info':
-              '{"a":"3000","ch":"1002","v":"5.0.4","e":"156584910960129542198"}',
-            'X-Host': 'mall.film-ticket.film.list'
-          }
-        })
-        .then(res => {
-          if (res.status === 0) {
-            commit({
-              type: 'setFilmList',
-              films: res.data.films
-            })
-          }
-        })
+    getFilmList({ commit }, payload) {
+      setTimeout(() => {
+        request
+          .get('/gateway', {
+            params: {
+              cityId: 440300,
+              pageNum: payload.pageNum,
+              pageSize: payload.pageSize,
+              type: 1,
+              k: 2809619
+            },
+            headers: {
+              'X-Client-Info':
+                '{"a":"3000","ch":"1002","v":"5.0.4","e":"156584910960129542198"}',
+              'X-Host': 'mall.film-ticket.film.list'
+            }
+          })
+          .then(res => {
+            if (res.status === 0) {
+              commit({
+                type: 'setFilmList',
+                films: res.data.films,
+                total: res.data.total
+              })
+
+              // 调用哪个回调函数即可
+              payload.callback()
+            }
+          })
+      }, 1500)
     }
   }
 }
