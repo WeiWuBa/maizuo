@@ -1,18 +1,18 @@
 <template>
   <div class="film-list">
     <ul class="film-list__ul">
-      <li class="film-list__item" v-for="item in 20">
+      <li class="film-list__item" v-for="item in films" :key="item.filmId">
         <a href="#">
           <div class="film-img">
-            <img
-              src="https://static.maizuo.com/pc/v5/usr/movie/97730d2c52fc77ef95598f501697ea2c.jpg?x-oss-process=image/quality,Q_70"
-              alt
-            />
+            <img :src="item.poster" alt />
           </div>
           <div class="film-info">
-            <p class="film-info-title">速度与激情：特别行动</p>
-            <p class="film-info-grade">观众评分 8.6</p>
-            <p class="film-info-actors">主演：张三、李四、王五、</p>
+            <p class="film-info-title">{{ item.name }}</p>
+            <p
+              class="film-info-grade"
+              :style="{visibility: item.grade ? '' : 'hidden' }"
+            >观众评分 {{ item.grade }}</p>
+            <p class="film-info-actors">主演：{{ item.actors | formatActors('1') }}</p>
             <p class="film-info-detail">美国 xxx | 133分钟</p>
           </div>
           <div class="film-btn">
@@ -26,7 +26,26 @@
 
 <script>
 export default {
-  name: 'FilmList'
+  name: 'FilmList',
+
+  props: {
+    films: Array
+  },
+
+  // 过滤器选项
+  filters: {
+    // key: value  key -> 过滤器名字  value -> 过滤器的处理函数,处理函数接收一个参数，参数的值是 调用 这个过滤器时 | 前面的数据的值。函数并且要返回内容。
+    formatActors: function(value) {
+      // console.log(value) [{name: 'xxx'}, {name: 'aaaa'}]
+      // xxx aaa xxx yyy
+      // 1. 取出主演数组中的某个name数据，生成一个新的数组
+      let arr = value.map(item => item.name) // ['zhangsan', 'lisi']
+      // 2. 再将 数组拼接成 字符串
+      let str = arr.join(' ')
+      // 3. 返回
+      return str
+    }
+  }
 }
 </script>
 
@@ -64,9 +83,18 @@ export default {
   .film-info {
     padding: 0 10px;
     flex: 1;
+    overflow: hidden;
     line-height: 1.6;
 
+    p {
+      height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .film-info-title {
+      height: 26px;
       font-size: 16px;
       color: #191a1b;
     }

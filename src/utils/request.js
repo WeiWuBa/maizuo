@@ -7,7 +7,7 @@ import { Toast } from 'vant'
 // 2. 创建一个 axios 的实例对象
 const request = axios.create({
   // 默认配置项
-  baseURL: 'http://localhost:3000'
+  baseURL: 'https://m.maizuo.com'
 })
 
 // 3. 在这还可以实现一些我们的拦截功能

@@ -7,7 +7,7 @@
     <!-- Tab 标签页 -->
     <van-tabs v-model="active" sticky :class="{'z-fixed': isFixed}">
       <van-tab title="正在热映">
-        <FilmList />
+        <FilmList :films="filmList" />
       </van-tab>
       <van-tab title="即将上映">内容2</van-tab>
     </van-tabs>
@@ -17,7 +17,7 @@
 <script>
 import Banner from '../../components/Banner'
 import FilmList from '../../components/FilmList'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Films',
@@ -28,10 +28,11 @@ export default {
   },
 
   computed: {
+    ...mapState('film', ['filmList']),
     ...mapGetters('film', ['bannerListImgs'])
   },
 
-  data () {
+  data() {
     return {
       isFixed: false,
       active: 0
@@ -39,8 +40,9 @@ export default {
   },
 
   methods: {
-    ...mapActions('film', ['getBannerList']),
-    bindScroll () {
+    ...mapActions('film', ['getBannerList', 'getFilmList']),
+
+    bindScroll() {
       console.log('影片列表在滚动')
       // console.log(this.$el.scrollTop)
       if (this.$el.scrollTop >= 210) {
@@ -51,12 +53,13 @@ export default {
     }
   },
 
-  created () {
+  created() {
     // this.$toast('hello')
     this.getBannerList()
+    this.getFilmList()
   },
 
-  mounted () {
+  mounted() {
     // this.$el.addEventListener('scroll', this.bindScroll)
   }
 
