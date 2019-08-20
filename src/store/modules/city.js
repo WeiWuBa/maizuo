@@ -8,7 +8,7 @@ export default {
   },
 
   getters: {
-    cityList(state) {
+    cityList (state) {
       let result = []
 
       state.cities.forEach(item => {
@@ -37,13 +37,13 @@ export default {
       })
     },
 
-    pys(state, getters) {
+    pys (state, getters) {
       return getters.cityList.map(item => item.py)
     }
   },
 
   mutations: {
-    setCities(state, payload) {
+    setCities (state, payload) {
       state.cities = payload.cities
     }
   },
@@ -53,7 +53,7 @@ export default {
      * 获取城市列表数据
      * @param {*} param0
      */
-    getCities({ commit }) {
+    getCities ({ commit }) {
       request
         .get('/gateway?k=9634874', {
           headers: {

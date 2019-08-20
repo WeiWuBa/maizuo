@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       list: [],
       loading: false,
@@ -15,7 +15,7 @@ export default {
   },
 
   methods: {
-    onLoad() {
+    onLoad () {
       // 异步更新数据
       setTimeout(() => {
         for (let i = 0; i < 10; i++) {
@@ -33,4 +33,3 @@ export default {
   }
 }
 </script>
-

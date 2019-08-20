@@ -48,7 +48,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'City',
 
-  data() {
+  data () {
     return {
       value: ''
     }
@@ -63,11 +63,11 @@ export default {
     /**
      * 点击后退
      */
-    onClickLeft() {
+    onClickLeft () {
       this.$router.back()
     },
 
-    fn1(py) {
+    fn1 (py) {
       // 1. 我得知道我点击的是个啥
       let itemBox = this.$refs[`item-${py}`][0]
       // 2. 算出 itemBox 距离顶部的高度
@@ -77,7 +77,7 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.getCities()
   }
 }

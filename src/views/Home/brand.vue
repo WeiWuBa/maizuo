@@ -29,7 +29,7 @@ import BScroll from 'better-scroll'
 export default {
   name: 'Brand',
 
-  data() {
+  data () {
     return {
       brands: [],
       phones: []
@@ -39,7 +39,7 @@ export default {
 
   watch: {
     $route: {
-      handler(newVal) {
+      handler (newVal) {
         this.getPhone()
       },
       immediate: true
@@ -50,7 +50,7 @@ export default {
     /**
      * 获取品牌列表
      */
-    getBrand() {
+    getBrand () {
       request
         .get('http://localhost:8080/api/portal-api/product/category-brands/1')
         .then(res => {
@@ -59,6 +59,7 @@ export default {
           }
 
           // 初始化
+          /* eslint-disable-next-line */
           new BScroll(this.$refs['left'], {
             click: true
           })
@@ -67,14 +68,14 @@ export default {
     /**
      * 根据品牌获取手机数据
      */
-    getPhone() {
+    getPhone () {
       // 1. 请求之前，先转圈
       Toast.loading({ duration: 0 })
       request
         .post('http://localhost:8080/api/portal-api/product/search', {
           brandId: this.$route.params.brandId,
           categoryId: 1,
-          isRecommend: this.$route.params.brandId === '' ? true : false,
+          isRecommend: this.$route.params.brandId === '',
           pageIndex: 0,
           pageSize: 20,
           refresh: true
@@ -86,12 +87,12 @@ export default {
 
           // 关闭提示
           Toast.clear()
-
+          /* eslint-disable-next-line */
           new BScroll(this.$refs['myRight'])
         })
     },
 
-    fn1(id) {
+    fn1 (id) {
       this.$router.replace(`/brand/${id}`)
       //   if (id) {
       //     this.$router.replace({
@@ -108,7 +109,7 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.getBrand()
     // this.getPhone()
   }

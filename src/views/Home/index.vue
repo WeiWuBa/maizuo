@@ -19,7 +19,7 @@ export default {
     Tabbar
   },
 
-  data() {
+  data () {
     return {
       tabs: [
         { id: 1, name: '影片', icon: 'icon-films', href: '/films' },

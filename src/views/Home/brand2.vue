@@ -23,7 +23,7 @@ import { Toast } from 'vant'
 export default {
   name: 'Brand',
 
-  data() {
+  data () {
     return {
       brands: [],
       phones: [],
@@ -35,7 +35,7 @@ export default {
     /**
      * 获取品牌列表
      */
-    getBrand() {
+    getBrand () {
       request
         .get('http://localhost:8080/api/portal-api/product/category-brands/1')
         .then(res => {
@@ -47,14 +47,14 @@ export default {
     /**
      * 根据品牌获取手机数据
      */
-    getPhone() {
+    getPhone () {
       // 1. 请求之前，先转圈
       Toast.loading({ duration: 0 })
       request
         .post('http://localhost:8080/api/portal-api/product/search', {
           brandId: this.curBrandId,
           categoryId: 1,
-          isRecommend: this.curBrandId === '' ? true : false,
+          isRecommend: this.curBrandId === '',
           pageIndex: 0,
           pageSize: 20,
           refresh: true
@@ -69,7 +69,7 @@ export default {
         })
     },
 
-    fn1(id) {
+    fn1 (id) {
       if (this.curBrandId === id) {
         return
       }
@@ -82,7 +82,7 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.getBrand()
     this.getPhone()
   }

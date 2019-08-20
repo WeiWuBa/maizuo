@@ -34,7 +34,7 @@ export default {
     filmType: {
       type: String,
 
-      validator(value) {
+      validator (value) {
         return ['nowPlaying', 'comingSoon'].indexOf(value) > -1
       }
     }
@@ -43,7 +43,7 @@ export default {
   // 过滤器选项
   filters: {
     // key: value  key -> 过滤器名字  value -> 过滤器的处理函数,处理函数接收一个参数，参数的值是 调用 这个过滤器时 | 前面的数据的值。函数并且要返回内容。
-    formatActors: function(value = []) {
+    formatActors: function (value = []) {
       // console.log(value) [{name: 'xxx'}, {name: 'aaaa'}]
       // xxx aaa xxx yyy
       // 0. 默认值

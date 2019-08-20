@@ -37,6 +37,7 @@ export default {
      * 初始化 swiper
      */
     initSwiper () {
+      /* eslint-disable-next-line */
       new Swiper('.swiper-container', {
         pagination: this.pagination
           ? {
