@@ -22,12 +22,18 @@ const routes = [
         component: () => import('./views/Home/cinemas.vue')
       },
       {
-        path: 'brand',
+        // 动态路由参数，后面加一个 ？ ,表示参数可以不用传递
+        path: 'brand/:brandId?',
+        name: 'brand',
         component: () => import('./views/Home/brand.vue')
       },
       {
         path: 'center',
         component: () => import('./views/Home/center.vue')
+      },
+      {
+        path: '',
+        redirect: '/films'
       }
     ]
   },

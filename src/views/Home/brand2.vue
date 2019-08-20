@@ -1,30 +1,24 @@
 <template>
   <!-- 京东分类页 -->
   <div class="page-home-brand">
-    <div class="left" ref="left">
-      <ul>
-        <li :class="{'active': !$route.params.brandId}" @click="fn1('')">推荐</li>
-        <li
-          v-for="item in brands"
-          :key="item.id"
-          :class="{'active': item.id === parseInt($route.params.brandId)}"
-          @click="fn1(item.id)"
-        >{{ item.name }}</li>
-      </ul>
-    </div>
-
-    <div class="right" ref="myRight">
-      <ul>
-        <li v-for="item in phones" :key="item.id">{{ item.name }}</li>
-      </ul>
-    </div>
+    <ul class="left">
+      <li :class="{'active': '' === curBrandId}" @click="fn1('')">推荐</li>
+      <li
+        v-for="item in brands"
+        :key="item.id"
+        :class="{'active': item.id === curBrandId}"
+        @click="fn1(item.id)"
+      >{{ item.name }}</li>
+    </ul>
+    <ul class="right" ref="myRight">
+      <li v-for="item in phones" :key="item.id">{{ item.name }}</li>
+    </ul>
   </div>
 </template>
 
 <script>
 import request from '../../utils/request'
 import { Toast } from 'vant'
-import BScroll from 'better-scroll'
 
 export default {
   name: 'Brand',
@@ -32,17 +26,8 @@ export default {
   data () {
     return {
       brands: [],
-      phones: []
-      // curBrandId: parseInt(this.$route.params.brandId) // 当前的品牌id
-    }
-  },
-
-  watch: {
-    $route: {
-      handler (newVal) {
-        this.getPhone()
-      },
-      immediate: true
+      phones: [],
+      curBrandId: '' // 选择的品牌id
     }
   },
 
@@ -57,12 +42,6 @@ export default {
           if (res.code === 0) {
             this.brands = res.data
           }
-
-          // 初始化
-          /* eslint-disable-next-line */
-          new BScroll(this.$refs['left'], {
-            click: true
-          })
         })
     },
     /**
@@ -73,9 +52,9 @@ export default {
       Toast.loading({ duration: 0 })
       request
         .post('http://localhost:8080/api/portal-api/product/search', {
-          brandId: this.$route.params.brandId,
+          brandId: this.curBrandId,
           categoryId: 1,
-          isRecommend: this.$route.params.brandId === '',
+          isRecommend: this.curBrandId === '',
           pageIndex: 0,
           pageSize: 20,
           refresh: true
@@ -87,31 +66,25 @@ export default {
 
           // 关闭提示
           Toast.clear()
-          /* eslint-disable-next-line */
-          new BScroll(this.$refs['myRight'])
         })
     },
 
     fn1 (id) {
-      this.$router.replace(`/brand/${id}`)
-      //   if (id) {
-      //     this.$router.replace({
-      //       name: 'brand',
-      //       params: {
-      //         brandId: id
-      //       }
-      //     })
-      //   } else {
-      //     this.$router.replace({
-      //       path: '/brand'
-      //     })
-      //   }
+      if (this.curBrandId === id) {
+        return
+      }
+      // 设置当前选择的品牌id
+      this.curBrandId = id
+      // 清空
+      this.phones = []
+      // 获取数据
+      this.getPhone()
     }
   },
 
   created () {
     this.getBrand()
-    // this.getPhone()
+    this.getPhone()
   }
 }
 </script>
@@ -122,6 +95,7 @@ export default {
 
   .left {
     width: 80px;
+    overflow-y: auto;
 
     li {
       position: relative;
@@ -152,6 +126,7 @@ export default {
 
   .right {
     flex: 1;
+    overflow-y: auto;
 
     li {
       height: 56px;
