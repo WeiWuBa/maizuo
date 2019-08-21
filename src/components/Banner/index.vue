@@ -36,26 +36,26 @@ export default {
     /**
      * 初始化 swiper
      */
-    initSwiper () {
+    initSwiper() {
       /* eslint-disable-next-line */
-      new Swiper('.swiper-container', {
+      new Swiper(this.$el, {
         pagination: this.pagination
           ? {
-            el: '.swiper-pagination'
-          }
+              el: '.swiper-pagination'
+            }
           : {},
 
         navigation: this.navigation
           ? {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            }
           : {}
       })
     }
   },
 
-  mounted () {
+  mounted() {
     this.initSwiper()
   }
   // updated() {
@@ -70,6 +70,15 @@ export default {
 
   img {
     width: 100%;
+  }
+
+  .swiper-pagination-bullet {
+    background: red;
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: green;
   }
 }
 </style>

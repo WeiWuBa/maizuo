@@ -5,15 +5,17 @@
       <!-- 轮播图 -->
       <Banner ref="myBanner" :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" />
 
+      <Banner ref="myBanner" :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" />
+
       <!-- Tab 标签页 -->
-      <van-tabs v-model="filmType" sticky :class="{'z-fixed': isFixed}">
+      <!-- <van-tabs v-model="filmType" sticky :class="{'z-fixed': isFixed}">
         <van-tab title="正在热映">
           <FilmList filmType="nowPlaying" :films="filmList" />
         </van-tab>
         <van-tab title="即将上映">
           <FilmList filmType="comingSoon" :films="filmList" />
         </van-tab>
-      </van-tabs>
+      </van-tabs>-->
     </div>
   </van-list>
 </template>
@@ -36,12 +38,12 @@ export default {
     ...mapGetters('film', ['bannerListImgs']),
 
     // 基于仓库中 total 数据与 本身的 pageSize 数据动态计算来的
-    totalPage () {
+    totalPage() {
       return Math.ceil(this.total / this.pageSize)
     }
   },
 
-  data () {
+  data() {
     return {
       isFixed: false,
       finished: false, // 是否还有更多数据
@@ -53,7 +55,7 @@ export default {
   },
 
   watch: {
-    filmType (newVal, oldVal) {
+    filmType(newVal, oldVal) {
       // 1. 将 pageNum 设置为 0
       this.pageNum = 0
       // 2. 将 finished 设置为 false
@@ -72,7 +74,7 @@ export default {
     ...mapMutations('film', ['setFilmList']),
     ...mapActions('film', ['getBannerList', 'getFilmList']),
 
-    bindScroll () {
+    bindScroll() {
       console.log('影片列表在滚动')
       // console.log(this.$el.scrollTop)
       if (this.$el.scrollTop >= 210) {
@@ -89,7 +91,7 @@ export default {
     /**
      * 加载更多的影片列表数据
      */
-    loadFilmList () {
+    loadFilmList() {
       console.log('123')
       // 1. 每次进入到这个方法的时候，都要讲 pageNum + 1
       this.pageNum++
@@ -112,13 +114,13 @@ export default {
     }
   },
 
-  created () {
+  created() {
     // this.$toast('hello')
     this.getBannerList()
     // this.getFilmList()
   },
 
-  mounted () {
+  mounted() {
     // this.$el.addEventListener('scroll', this.bindScroll)
   }
 

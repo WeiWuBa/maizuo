@@ -1,35 +1,97 @@
 <template>
-  <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-    <van-cell v-for="item in list" :key="item" :title="item" />
-  </van-list>
+  <div class="page-home-cinemas">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="num in pageTotal" :key="num">
+          <div class="list">
+            <div
+              class="item"
+              v-for="item in list.slice( (num - 1) * pageSize, pageSize * num )"
+              :key="item.articleId"
+            >
+              <img :src="item.articleImg" alt />
+              <div>
+                <p class="title">{{ item.title }}</p>
+                <!-- <p class="desc" v-html="item.content"></p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 如果需要分页器 -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
 </template>
 
 <script>
+import Swiper from 'swiper'
+import 'swiper/dist/css/swiper.css'
+import request from '../../utils/request'
+
 export default {
-  data () {
+  name: 'Cinemas',
+
+  data() {
     return {
       list: [],
-      loading: false,
-      finished: false
+      pageSize: 2
+    }
+  },
+
+  computed: {
+    pageTotal() {
+      return Math.ceil(this.list.length / this.pageSize)
     }
   },
 
   methods: {
-    onLoad () {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 加载状态结束
-        this.loading = false
+    getList() {
+      request.get('http://localhost:3000/article').then(res => {
+        this.list = res
 
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 500)
+        this.$nextTick(() => {
+          new Swiper('.swiper-container', {
+            pagination: {
+              el: '.swiper-pagination'
+            }
+          })
+        })
+      })
     }
+  },
+
+  created() {
+    this.getList()
   }
 }
 </script>
+
+<style lang="scss">
+.page-home-cinemas {
+  .swiper-container {
+    height: 200px;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+  }
+
+  .item {
+    flex: 1;
+    display: flex;
+
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    > div {
+      flex: 1;
+    }
+  }
+}
+</style>
