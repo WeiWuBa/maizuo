@@ -1,14 +1,14 @@
 <template>
   <div class="page-home-center">
-    <!-- <div class="avatar" v-if="userInfo">
+    <div class="avatar" v-if="userInfo">
       <div class="avator-icon">
         <img :src="userInfo.avatar" />
-        <input type="file" @change="handleUpdAvatar" />
+        <!-- <input type="file" @change="handleUpdAvatar" /> -->
       </div>
-      <div class="nick-name">{{ userInfo.nickname }}</div>
-    </div>-->
+      <div class="nick-name">{{ userInfo.username }}</div>
+    </div>
 
-    <div class="avatar">
+    <div class="avatar" v-else>
       <div class="avator-icon">
         <img src="../../assets/images/avatar.png" />
       </div>
@@ -42,7 +42,11 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'center'
+  name: 'center',
+
+  computed: {
+    ...mapState('user', ['userInfo'])
+  }
 }
 </script>
 

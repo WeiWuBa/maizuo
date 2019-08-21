@@ -23,6 +23,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   data() {
@@ -32,7 +33,7 @@ export default {
     }
   },
   methods: {
-    // ...mapActions('user', ['handleLogin'])
+    ...mapActions('user', ['handleLogin'])
   }
 }
 </script>
