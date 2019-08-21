@@ -5,17 +5,17 @@
       <!-- 轮播图 -->
       <Banner ref="myBanner" :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" />
 
-      <Banner ref="myBanner" :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" />
+      <!-- <Banner ref="myBanner" :imgs="bannerListImgs" v-if="bannerListImgs.length > 0" /> -->
 
       <!-- Tab 标签页 -->
-      <!-- <van-tabs v-model="filmType" sticky :class="{'z-fixed': isFixed}">
+      <van-tabs v-model="filmType" sticky :class="{'z-fixed': isFixed}">
         <van-tab title="正在热映">
           <FilmList filmType="nowPlaying" :films="filmList" />
         </van-tab>
         <van-tab title="即将上映">
           <FilmList filmType="comingSoon" :films="filmList" />
         </van-tab>
-      </van-tabs>-->
+      </van-tabs>
     </div>
   </van-list>
 </template>
