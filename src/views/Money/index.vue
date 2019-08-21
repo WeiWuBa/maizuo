@@ -6,3 +6,16 @@
     <h1>钱包</h1>
   </div>
 </template>
+
+<script>
+import request from '../../utils/request'
+export default {
+  name: 'Money',
+
+  created() {
+    request.post('http://localhost:8080/api/getMoney').then(res => {
+      console.log(res)
+    })
+  }
+}
+</script>

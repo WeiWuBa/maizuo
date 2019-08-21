@@ -1,6 +1,8 @@
 // 1. 引入 Vue
 import Vue from 'vue'
 
+import store from './store'
+
 // 2. 引入 VueRouter
 import VueRouter from 'vue-router'
 
@@ -51,13 +53,37 @@ const routes = [
   },
   {
     path: '/money',
-    component: () => import('./views/Money/index.vue')
+    component: () => import('./views/Money/index.vue'),
+    meta: {
+      needLogin: true
+    }
   }
 ]
 
 // 5. 创建 路由实例对象
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  // 判断将要去的路由是否需要登录状态
+  if (to.meta.needLogin) {
+    // 登录状态的校验
+    if (store.state.user.userInfo) {
+      // 放行
+      next()
+    } else {
+      // 不存在，去登录
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 // 6. 暴露

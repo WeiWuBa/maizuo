@@ -26,7 +26,7 @@
       </li>
     </ul>
 
-    <router-link tag="div" to="/card" class="margin-set my-card">
+    <router-link tag="div" to="/money" class="margin-set my-card">
       <span class="label">卖座卡</span>
     </router-link>
     <div class="margin-set my-balance">

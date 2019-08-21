@@ -38,7 +38,8 @@ export default {
           localStorage.setItem('token', res.data.token)
 
           // 跳转页面， 默认跳转到 个人中心页
-          router.replace('/center')
+          let redirect = router.currentRoute.query.redirect || '/center'
+          router.replace(redirect)
         } else {
           // 登录失败
           Toast(res.msg)
