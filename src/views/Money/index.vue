@@ -12,7 +12,7 @@ import request from '../../utils/request'
 export default {
   name: 'Money',
 
-  created() {
+  created () {
     request.post('/api/getMoney').then(res => {
       console.log(res)
     })

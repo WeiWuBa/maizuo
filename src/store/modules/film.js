@@ -12,16 +12,16 @@ export default {
   },
 
   getters: {
-    bannerListImgs(state) {
+    bannerListImgs (state) {
       return state.bannerList.map(item => item.img)
     }
   },
 
   mutations: {
-    setBannerList(state, payload) {
+    setBannerList (state, payload) {
       state.bannerList = payload
     },
-    setFilmList(state, payload) {
+    setFilmList (state, payload) {
       // 第一种方式 做拼接
       // state.filmList = state.filmList.concat(payload.films)
       // 第二中方式 做push ...
@@ -43,7 +43,7 @@ export default {
     /**
      * 获取轮播图的数据
      */
-    getBannerList({ commit }) {
+    getBannerList ({ commit }) {
       // axios.get('/banner') http://localhost:8080/banner
       request.get('/db/banner').then(data => {
         // console.log(data)
@@ -55,7 +55,7 @@ export default {
     /**
      * 获取影片列表数据
      */
-    getFilmList({ commit, state }, payload) {
+    getFilmList ({ commit, state }, payload) {
       setTimeout(() => {
         request
           .get('https://m.maizuo.com/gateway', {

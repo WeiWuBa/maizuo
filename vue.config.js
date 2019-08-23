@@ -10,6 +10,7 @@ module.exports = {
         target: 'http://localhost:9090',
         changeOrigin: true
       },
+
       '/db': {
         target: 'http://localhost:3000',
         changeOrigin: true,

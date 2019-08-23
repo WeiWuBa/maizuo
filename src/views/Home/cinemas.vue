@@ -32,7 +32,7 @@ import request from '../../utils/request'
 export default {
   name: 'Cinemas',
 
-  data() {
+  data () {
     return {
       list: [],
       pageSize: 2
@@ -40,17 +40,18 @@ export default {
   },
 
   computed: {
-    pageTotal() {
+    pageTotal () {
       return Math.ceil(this.list.length / this.pageSize)
     }
   },
 
   methods: {
-    getList() {
+    getList () {
       request.get('http://localhost:3000/article').then(res => {
         this.list = res
 
         this.$nextTick(() => {
+          /* eslint-disable-next-line */
           new Swiper('.swiper-container', {
             pagination: {
               el: '.swiper-pagination'
@@ -61,7 +62,7 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.getList()
   }
 }

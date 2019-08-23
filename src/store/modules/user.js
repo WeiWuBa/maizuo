@@ -16,7 +16,7 @@ export default {
   getters: {},
 
   mutations: {
-    login(state, payload) {
+    login (state, payload) {
       state.userInfo = payload.userInfo
       state.token = payload.token
     }
@@ -26,7 +26,7 @@ export default {
     /**
      * 登录
      */
-    handleLogin({ commit }, payload) {
+    handleLogin ({ commit }, payload) {
       // 去掉了 baseURl 之后
       // 本地 ： http://localhost:8080/api/sign-in
       // 上线：  http://服务器ip地址/api/sign-in
