@@ -1,29 +1,21 @@
-# maizuo
+# 卖座电影
 
-## Project setup
-```
-npm install
-```
+#### 路由定义
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+一级路由：
 
-### Compiles and minifies for production
-```
-npm run build
-```
+| 路径          | 组件名 |
+| ------------- | ------ |
+| /             | Home   |
+| /film/:filmId | Film   |
+| /city         | City   |
+| /login        | Login  |
+| /money        | Money  |
 
-### Run your tests
-```
-npm run test
-```
+二级路由：
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+| 路径     | 组件名  | 他的父级 |
+| -------- | ------- | -------- |
+| /films   | Films   | /        |
+| /cinemas | Cinemas | /        |
+| /center  | Center  | /        |
