@@ -13,7 +13,7 @@ export default {
   name: 'Money',
 
   created() {
-    request.post('http://localhost:8080/api/getMoney').then(res => {
+    request.post('/api/getMoney').then(res => {
       console.log(res)
     })
   }

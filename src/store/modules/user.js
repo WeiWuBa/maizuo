@@ -27,7 +27,10 @@ export default {
      * 登录
      */
     handleLogin({ commit }, payload) {
-      request.post('http://localhost:8080/api/sign-in', payload).then(res => {
+      // 去掉了 baseURl 之后
+      // 本地 ： http://localhost:8080/api/sign-in
+      // 上线：  http://服务器ip地址/api/sign-in
+      request.post('/api/sign-in', payload).then(res => {
         console.log(res)
         if (res.code === 0) {
           // 登录成功 存储到仓库

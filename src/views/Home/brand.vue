@@ -52,7 +52,7 @@ export default {
      */
     getBrand () {
       request
-        .get('http://localhost:8080/api/portal-api/product/category-brands/1')
+        .get('/ahs/portal-api/product/category-brands/1')
         .then(res => {
           if (res.code === 0) {
             this.brands = res.data
@@ -72,7 +72,7 @@ export default {
       // 1. 请求之前，先转圈
       Toast.loading({ duration: 0 })
       request
-        .post('http://localhost:8080/api/portal-api/product/search', {
+        .post('/ahs/portal-api/product/search', {
           brandId: this.$route.params.brandId,
           categoryId: 1,
           isRecommend: this.$route.params.brandId === '',
